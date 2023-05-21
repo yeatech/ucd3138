@@ -1,0 +1,94 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="T:\a0273277_new\dp_firmware\Cyclone 2\UCD3138FBLLC\"
+ProjectType=Executable
+CPUFamily=TMS470R1X
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="Linker"
+Config="Debug"
+Config="Release"
+
+[Source Files]
+Source="C:\CCStudio_v3.3\tms470\cgtools\lib\rts32tiabi.lib"
+Source="clear_program_flash.c"
+Source="configuration_functions.c"
+Source="constants.c"
+Source="cyclone_global_variables_defs.c"
+Source="device_id.c"
+Source="flash.c"
+Source="gpio.c"
+Source="init_adc12.c"
+Source="init_cpcc.c"
+Source="init_current_sharing.c"
+Source="init_dpwms.c"
+Source="init_fault_mux.c"
+Source="init_filters.c"
+Source="init_front_ends.c"
+Source="init_loop_mux.c"
+Source="init_pmbus.c"
+Source="init_watchdog.c"
+Source="interrupts.c"
+Source="load.asm"
+Source="main.c"
+Source="pmbus.c"
+Source="pmbus_cml_commands.c"
+Source="pmbus_fault_commands.c"
+Source="pmbus_handler.c"
+Source="pmbus_manuf_info_commands.c"
+Source="pmbus_manuf_specific_commands.c"
+Source="pmbus_other_commands.c"
+Source="pmbus_read_param_commands.c"
+Source="pmbus_status_commands.c"
+Source="pmbus_vout_commands.c"
+Source="pmbus_vout_sequencing_commands.c"
+Source="scale.c"
+Source="standard_interrupt.c"
+Source="store_restore_functions.c"
+Source="uart.c"
+Source="software_interrupt_wrapper.c"
+Source="..\Linker Files\cyclone_headers.cmd"
+Source="cyclone.cmd"
+
+["Debug" Settings]
+InitialBuildCmd=perl ../build_scripts/create_date_dot_h.pl;Run=Never
+FinalBuildCmd=hex470 -x -memwidth 8 .\debug\cyclone.out;Run=Always
+FinalBuildCmd=perl ../build_scripts/checkmem.pl cyclone cyclone.map;Run=Never
+FinalBuildCmd=perl ../build_scripts/build.pl UCD3138LLCEVM_028;Run=Never
+
+["Compiler" Settings: "Debug"]
+Options=-g -k -ppa -ppc -al -as -o2 -ea.asm -fr"$(Proj_dir)\Debug" -fs"$(Proj_dir)\Debug" -i"../header files" -d"_DEBUG" -mt -mv4 --abi=tiabi --endian=big
+
+["Compiler" Settings: "Release"]
+Options=-o3 -fr"$(Proj_dir)\Release" -mv4 --abi=tiabi
+
+["Linker" Settings: "Debug"]
+Options=-c -heap10 -m".\cyclone.map" -o".\Debug\cyclone.out" -stack200 -w -x
+
+["Linker" Settings: "Release"]
+Options=-c -m".\Release\volume1.map" -o".\Release\volume1.out" -w -x
+
+["interrupts.c" Settings: "Debug"]
+Options="Compiler" +{--code_state=32} -{-mt}
+
+["standard_interrupt.c" Settings: "Debug"]
+Options="Compiler" +{--code_state=32} -{-mt}
+
+["..\Linker Files\cyclone_headers.cmd" Settings: "Debug"]
+LinkOrder=1
+
+["..\Linker Files\cyclone_headers.cmd" Settings: "Release"]
+LinkOrder=1
+
+["cyclone.cmd" Settings: "Debug"]
+LinkOrder=1
+
+["cyclone.cmd" Settings: "Release"]
+LinkOrder=1
+
+
+
+["software_interrupt_wrapper.c" Settings: "Debug"]
+Options="Compiler" +{--code_state=32} -{-mt}
+
